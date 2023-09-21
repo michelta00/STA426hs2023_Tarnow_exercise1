@@ -6,7 +6,7 @@ editor: visual
 
 ## Import of necessary packages
 
-Import the *tidyverse* package:
+The *tidyverse* package is imported to use `ggplot2`:
 
 ```{r, message=FALSE}
 library(tidyverse)
@@ -14,9 +14,10 @@ library(tidyverse)
 
 ## Sample generation
 
-Sample 100 values from a log-normal-distribution:
+100 values are sampled from a log-normal-distribution:
 
 ```{r}
+set.seed(42)
 sample <- rlnorm(100, meanlog = 5, sdlog = 0.5)
 ```
 
@@ -24,24 +25,38 @@ The mean value of the sample is `r mean(sample)` and the standard deviation is `
 
 ## Plots
 
-Plot the data in a histogram with linear scales:
+The distribution of the data can be explored using different types of plots, e.g. histograms or violin plots.
+
+The data is plotted first in a histogram with linear scales:
 
 ```{r}
 ggplot(data = data.frame(sample), aes(x = sample)) +
-  geom_histogram(binwidth = 5)
+  geom_histogram(binwidth = 15,
+                 fill = "blue",
+                 color = "white") +
+  labs(title = "Histogram of log-normal-distribution (linear scale)", 
+       x = "Value", 
+       y = "Count")
 ```
 
-Plot the data in a histogram with log scales:
+Afterwards, the data is plotted in a histogram with log scales:
 
 ```{r}
-ggplot(data = data.frame(sample), aes(x = sample)) +
-  geom_histogram(binwidth = 0.01) +
-  scale_x_log10()
+ggplot(data = data.frame(log(sample)), aes(x = log(sample))) +
+  geom_histogram(binwidth = 0.1,
+                 fill = "blue",
+                 color = "white") +
+  labs(title = "Histogram of log-normal-distribution histogram (log scale)", 
+       x = "log(Value)", 
+       y = "Count")
 ```
 
-Plot the data in a violin plot:
+Finally, the data is plotted in a violin plot:
 
 ```{r}
-ggplot(data = data.frame(sample), aes(x = c(1:length(sample)), y = sample)) +
-  geom_violin()
+ggplot(data = data.frame(sample), aes(x = "", y = sample)) +
+  geom_violin(fill = "blue", color = "black", alpha = 0.5) +
+  labs(title = "Log-normal-distribution violin plot", 
+       x = "1", 
+       y = "Value")
 ```
