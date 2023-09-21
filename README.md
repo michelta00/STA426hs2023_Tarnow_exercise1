@@ -1,1 +1,1 @@
-# STA426hs2023_Tarnow_exercise1
+# Exercise 1: GitHub and quarto
