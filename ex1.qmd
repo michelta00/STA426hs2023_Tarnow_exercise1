@@ -1,0 +1,47 @@
+---
+title: "Exercise 1"
+format: html
+editor: visual
+---
+
+## Import of necessary packages
+
+Import the *tidyverse* package:
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+## Sample generation
+
+Sample 100 values from a log-normal-distribution:
+
+```{r}
+sample <- rlnorm(100, meanlog = 5, sdlog = 0.5)
+```
+
+The mean value of the sample is `r mean(sample)` and the standard deviation is `r sd(sample)`.
+
+## Plots
+
+Plot the data in a histogram with linear scales:
+
+```{r}
+ggplot(data = data.frame(sample), aes(x = sample)) +
+  geom_histogram(binwidth = 5)
+```
+
+Plot the data in a histogram with log scales:
+
+```{r}
+ggplot(data = data.frame(sample), aes(x = sample)) +
+  geom_histogram(binwidth = 0.01) +
+  scale_x_log10()
+```
+
+Plot the data in a violin plot:
+
+```{r}
+ggplot(data = data.frame(sample), aes(x = c(1:length(sample)), y = sample)) +
+  geom_violin()
+```
